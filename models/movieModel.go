@@ -6,14 +6,28 @@ import (
 
 type Movie struct {
 	gorm.Model
-	ID          uint     `json:"id" gorm:"primary_key"`
-	Title       string   `json:"title"`
-	Description string   `json:"description"`
-	Isbn        string   `json:"isbn"`
-	Genre       string   `json:"genre"`
-	Rating      float64  `json:"rating"`
-	DirectorID  uint     `json:"director_id"`
-	Director    Director `gorm:"references:DirectorID,constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"director"`
-	// CreatedAt   time.Time `json:"created_at"`
-	// UpdatedAt   time.Time `json:"updated_at"`
+	// ID   int    `json:"id" form:"id" gorm:"primaryKey"`
+	Title       string   `json:"title" form:"title"`
+	Description string   `json:"description" form:"description"`
+	Isbn        string   `json:"isbn" form:"isbn"`
+	Genre       string   `json:"genre" form:"genre"`
+	Rating      float64  `json:"rating" form:"rating"`
+	DirectorID  uint     `json:"director_id" form:"director_id"`
+	Director    Director `json:"director"`
+	// Director DirectorResponse `json:"director"`
+}
+
+type MovieResponse struct {
+	gorm.Model
+	// ID          int     `json:"id" gorm:"primary_key"`
+	Title       string  `json:"title" form:"title"`
+	Description string  `json:"description" form:"description"`
+	Isbn        string  `json:"isbn" form:"isbn"`
+	Genre       string  `json:"genre" form:"genre"`
+	Rating      float64 `json:"rating" form:"rating"`
+	DirectorID  uint    `json:"-" form:"director_id"`
+}
+
+func (MovieResponse) TableName() string {
+	return "movies"
 }

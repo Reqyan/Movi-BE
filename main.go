@@ -12,7 +12,7 @@ import (
 func main() {
 	godotenv.Load()
 
-	models.ConnectDatabase()
+	models.InitDatabase()
 
 	handler := controllers.New()
 

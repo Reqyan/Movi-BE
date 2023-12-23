@@ -10,7 +10,7 @@ import (
 
 var DB *gorm.DB
 
-func ConnectDatabase() {
+func InitDatabase() {
 	dsn := fmt.Sprintf(
 		"host=%s user=%s password=%s dbname=%s port=%s sslmode=disable",
 		os.Getenv("DB_HOST"),
@@ -27,4 +27,7 @@ func ConnectDatabase() {
 	database.AutoMigrate(&Movie{})
 	database.AutoMigrate(&Director{})
 	DB = database
+}
+func ConnectDatabase() *gorm.DB {
+	return DB
 }
